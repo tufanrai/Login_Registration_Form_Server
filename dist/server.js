@@ -6,18 +6,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const auth_router_1 = __importDefault(require("../src/router/auth.router"));
-const dbConfig_1 = require("../src/config/dbConfig");
+const auth_router_1 = __importDefault(require("./router/auth.router"));
+const dbConfig_1 = require("./config/dbConfig");
 // import ting the root url's from .env file
 const PORT = process.env.PORT ?? 8000;
 const uri = process.env.DB_URI ?? '';
+const source = process.env.SOURCE ?? '';
 // initialising app  
 const app = (0, express_1.default)();
 // connecting the server with database
 (0, dbConfig_1.dbConfig)(uri);
 // using middlewares
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:3000',
+    origin: source,
 }));
 app.use(express_1.default.urlencoded());
 app.use(express_1.default.json());
